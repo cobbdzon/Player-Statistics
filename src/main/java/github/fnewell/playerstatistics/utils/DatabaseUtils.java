@@ -581,7 +581,7 @@ public class DatabaseUtils {
                 if (PlayerStatistics.DEBUG) {
                     PlayerStatistics.LOGGER.info("Reading response from API (Ely.by) ...");
                 }
-                tring response = scanner.useDelimiter("\\A").next();
+                String response = scanner.useDelimiter("\\A").next();
                 JsonNode rootNode = StatSyncTask.MAPPER.readTree(response);
                 JsonNode profileNameNode = rootNode.get("name");
                 if (PlayerStatistics.DEBUG) {
