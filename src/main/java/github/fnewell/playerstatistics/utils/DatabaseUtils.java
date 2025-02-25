@@ -579,13 +579,13 @@ public class DatabaseUtils {
             // Read the response from the API
             try (Scanner scanner = new Scanner(connection.getInputStream())) {
                 if (PlayerStatistics.DEBUG) {
-                    PlayerStatistics.LOGGER.info("Reading response from API (Java: Ely.by) ...");
+                    PlayerStatistics.LOGGER.info("Reading response from API (Ely.by) ...");
                 }
                 tring response = scanner.useDelimiter("\\A").next();
                 JsonNode rootNode = StatSyncTask.MAPPER.readTree(response);
                 JsonNode profileNameNode = rootNode.get("name");
                 if (PlayerStatistics.DEBUG) {
-                    PlayerStatistics.LOGGER.info("Player nick fetched from API (Java: Ely.by): {}",
+                    PlayerStatistics.LOGGER.info("Player nick fetched from API (Ely.by): {}",
                             profileNameNode.asText());
                 }
                 return profileNameNode != null ? profileNameNode.asText() : null;
@@ -594,7 +594,7 @@ public class DatabaseUtils {
             if (PlayerStatistics.DEBUG) {
                 PlayerStatistics.LOGGER.info("Trace: ", e);
             }
-            PlayerStatistics.LOGGER.error("Error fetching player nick from API (Java: Ely.by): {}", e.getMessage());
+            PlayerStatistics.LOGGER.error("Error fetching player nick from API (Ely.by): {}", e.getMessage());
             return null;
         }
     }
