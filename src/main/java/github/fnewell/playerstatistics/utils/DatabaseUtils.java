@@ -569,7 +569,7 @@ public class DatabaseUtils {
             PlayerStatistics.LOGGER.info("Fetching Java player nick from Ely.by API ...");
         }
 
-        String apiUrl = "https://authserver.ely.by/session/profile/" + playerUUID;
+        String apiUrl = "https://authserver.ely.by/api/user/profiles/" + playerUUID + "/names";
         try {
             // Create a connection to the API as a GET request
             URI uri = new URI(apiUrl);
@@ -583,12 +583,13 @@ public class DatabaseUtils {
                 }
                 String response = scanner.useDelimiter("\\A").next();
                 JsonNode rootNode = StatSyncTask.MAPPER.readTree(response);
-                JsonNode profileNameNode = rootNode.get("name");
+                PlayerStatistics.LOGGER.info("Player nick fetched from API (Java): {}", response);
+                JsonNode nameNode = rootNode.iterator().next().path("name");
                 if (PlayerStatistics.DEBUG) {
                     PlayerStatistics.LOGGER.info("Player nick fetched from API (Ely.by): {}",
-                            profileNameNode.asText());
+                            nameNode.asText());
                 }
-                return profileNameNode != null ? profileNameNode.asText() : null;
+                return nameNode != null ? nameNode.asText() : null;
             }
         } catch (Exception e) {
             if (PlayerStatistics.DEBUG) {
